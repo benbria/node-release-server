@@ -1,8 +1,12 @@
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
+import LRU    from 'lru-cache';
 
 export default class Github {
     constructor(credentials) {
+        this.cache = LRU({
+            max: 1000
+        });
         this.headers = {
             'Authorization': "Basic " + new Buffer(credentials.username + ":" + credentials.token).toString('base64')
         };
@@ -27,8 +31,15 @@ export default class Github {
         .then(tags =>
             Promise.all(tags.map(tag =>
                 // TODO: Cache commits
-                this._github(`https://api.github.com/repos/${project}/git/commits/${tag.commit.sha}`)
-                .then(commit =>
+                Promise.resolve(this.cache.get(tag.commit.sha))
+                .then(cached =>
+                    cached ? cached :
+                    this._github(`https://api.github.com/repos/${project}/git/commits/${tag.commit.sha}`)
+                    .then(commit => {
+                        this.cache.set(tag.commit.sha, commit);
+                        return commit;
+                    })
+                ).then(commit =>
                     ({
                         tag: tag.name,
                         sha: tag.commit.sha,
