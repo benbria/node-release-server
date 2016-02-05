@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "build:client": "NODE_ENV=production webpack",
-    "build:server": "coffee -c -o lib src && babel -s -d lib src",
+    "build:server": "babel -s -d lib src",
     "build": "npm run build:client && npm run build:server",
     "prepublish": "npm run build && npm run test",
     "start": "node ./lib/server/index.js"

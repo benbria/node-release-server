@@ -5,7 +5,7 @@ import * as path from 'path';
 import express from 'express';
 import moment from 'moment';
 import _ from 'lodash';
-import View from '../client/components/index'
+import View from '../client/components/Index'
 
 import Github from './github'
 import render from './render';

@@ -3,7 +3,7 @@
 
 import React                          from 'react';
 import ReactDOM                       from 'react-dom';
-import View                           from './components/index'
+import View                           from './components/Index'
 
 const initialState = window.appState;
 
