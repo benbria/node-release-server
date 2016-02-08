@@ -24,7 +24,7 @@ const ShowHideBlock = ({hidden}) =>
  */
 const Release = React.createClass({
     getDefaultProps: function() {
-        return {initiallyHidden: true};
+        return {initiallyHidden: false};
     },
 
     getInitialState: function() {

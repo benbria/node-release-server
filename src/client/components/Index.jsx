@@ -8,7 +8,7 @@ import Release        from './Release';
  */
 export default ({rows}) =>
     <div>{
-        rows.map((row, index) =>
-            <Release key={row.date} initiallyHidden={index !== 0} {...row}/>
+        rows.map(row =>
+            <Release key={row.date} {...row}/>
         )
     }</div>
